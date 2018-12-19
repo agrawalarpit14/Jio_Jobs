@@ -38,30 +38,30 @@
       <div class="container">
         <!-- <img src="{% static 'logo.jpg' %}" style="width: 25px;height: 25px;"> -->
         <a class="navbar-brand js-scroll-trigger" href="{% url 'post-home' %}" style="font-family:Times New Roman;font-size: 23px;">JIO JOBS</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler navbar-toggler-right navigator_item" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto">
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="{% url 'user-dashboard' user.username %}">Listings By You</a>
+              <a class="nav-link js-scroll-trigger navigator_item" href="{% url 'user-dashboard' user.username %}">Listings By You</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="{% url 'post-create' %}">Want to work?</a>
+              <a class="nav-link js-scroll-trigger navigator_item" href="{% url 'post-create' %}">Want to work?</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="{% url 'user-profile' %}">Profile</a>
+              <a class="nav-link js-scroll-trigger navigator_item" href="{% url 'user-profile' %}">Profile</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="{% url 'user-logout' %}">Logout</a>
+              <a class="nav-link js-scroll-trigger navigator_items" href="{% url 'user-logout' %}">Logout</a>
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="{% url 'user-register' %}">Sign Up</a>
+              <a class="nav-link js-scroll-trigger navigator_item" href="{% url 'user-register' %}">Sign Up</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="{% url 'user-login' %}">Login</a>
+              <a class="nav-link js-scroll-trigger navigator_item" href="{% url 'user-login' %}">Login</a>
             </li>
             {% endif %}
           <!--   <li class="nav-item">
@@ -96,10 +96,10 @@
   <div class="container" style="position: fixed;bottom: 0px;height: 25px;">
     <div class="row"  style="background-color: #212529;color: white;">
       <ul class="list-inline">
-        <a href="#" onclick="goBack()"><li class="list-inline-item" style="width: 140px;">
+        <a href="#" onclick="goBack()" class="navigator_item"><li class="list-inline-item" style="width: 140px;">
           Back
         </li></a>
-        <a href="{% url 'post-home' %}"><li class="list-inline-item">
+        <a href="{% url 'post-home' %}" class="navigator_item"><li class="list-inline-item">
           Dashboard
         </li></a>
       </ul>
@@ -148,6 +148,31 @@
     <script>
       function goBack() {
         window.history.back()
+      }
+    </script>
+    <script>
+      document.activeElement.addEventListener('keydown', handleKeydownEvent);
+      function handleKeydown(e) {
+        switch(e.key) {
+          case 'ArrowUp':
+            nav(-1);
+            break;
+          case 'ArrowDown':
+            nav(1);
+            break;
+          case 'ArrowRight':
+            nav(1);
+            break:
+          case 'ArrowLeft': 
+            nav(-1);
+            break;
+        }
+      }
+      function nav (move) {
+        var next = currentIndex + move;
+        var items = document.querySelectorAll('.navigator_item');
+        var targetElement = items[next];
+        targetElement.focus();
       }
     </script>
     <script src="{% static 'post/jquery.js' %}"></script>

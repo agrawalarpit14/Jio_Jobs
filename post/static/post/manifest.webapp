@@ -5,8 +5,8 @@
 	"theme":"#51b7c1",
 	"display":"FirstApp",
 	"version":"1.0.0",
-	"launch_path": "/post/templates/post/home.html",
-	"type": "privileged",
+	"fullscreen": "true",
+	"type": "web",
 	"origin": "app://firstapp.jio.com",
 	"cursor": true,
 	"icons": {
@@ -22,7 +22,7 @@
     			"description": "Required for storing and retrieving notes."
   		}
 	},
-		"default_locale": "en-US",
+	"default_locale": "en-US",
 	"locales": {
 		"en-US": {
 			"name": "Jio Jobs",
