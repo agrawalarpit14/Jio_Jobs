@@ -1,0 +1,88 @@
+{% extends "post/base.html" %}
+{% block content %}
+<div id="posts" class="container-fluid">
+  <b>Listing by You</b>
+  <div style="height: 15px;border-top: 2px solid #eeeeee"></div>
+  {% for post in posts %}
+  <div id="post">
+    <article class="media content-section" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);border-radius: 10px;">
+      <div style="padding: 15px;">
+        <img class=" img-rounded article-imag" style="width: 20%; height: 20%;border-radius: 3px;" src="{{ post.author.userprofile.image.url }}">
+      <a class="mr-2" href="{% url 'user-posts' post.author.username %}" style="color: black"> {{ post.author }}</a>
+      <table>
+        <div style="height: 0.2em;"></div>
+        <tr style="border-top: 1px solid #dddddd">
+          <td>
+            Gender:
+          </td>  
+          <td class="second-dat">
+            <b id='item' > {{ post.gender }}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Age:
+          </td>  
+          <td class="second-dat">
+            <b> {{ post.age }}</b>
+          </td>
+        </tr>
+         <tr>
+          <td>
+            Skills:
+          </td>  
+          <td class="second-dat">
+            <b> {{ post.skills }}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Mobile:
+          </td>  
+          <td class="second-dat">
+            <b> {{ post.mobile }}</b>
+          </td>
+        </tr>
+      </table>
+        <div align="center">
+          <a href="{% url 'post-detail' post.id %}"><button style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);background-color: #4CAF50;border: none;color: white;padding: 6px 35px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;border-radius: 6px;"><b>Details</b></button></a>
+        </div>
+      </div>
+    </article> 
+    <br>
+  </div>
+  {% endfor %}
+</div>
+  <br>
+    
+    {% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4" href="?page=1"><<</a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}"><</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">></a>
+        <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">>></a>
+      {% endif %}
+
+    {% endif %}
+</div>
+{% endblock content %}
+
+<!--       <div>
+        Item: <b>{{ post.item }}</b>
+        <br>
+        <p class="article-title">Category:<b> {{ post.item }}</b></p>
+        <div style="height: 40px; overflow: hidden;">
+          <p class="article-content">Description:  {{ post.description }}</p>
+        </div> -->

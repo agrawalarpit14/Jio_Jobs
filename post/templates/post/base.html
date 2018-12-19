@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>JIO JOBS</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'post/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="{% static 'post/all.css' %}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'post/agency.css' %}" rel="stylesheet" type="text/css">
+    <!-- <link rel="stylesheet"  href="{% static 'post/main.css' %}"> -->
+    <style>
+      .razorpay-payment-button{
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);background-color: #4CAF50;border: none;color: white;padding: 6px 35px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;border-radius: 6px;
+      }
+    </style>
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrinked" id="mainNav">
+      <div class="container">
+        <!-- <img src="{% static 'logo.jpg' %}" style="width: 25px;height: 25px;"> -->
+        <a class="navbar-brand js-scroll-trigger" href="{% url 'post-home' %}" style="font-family:Times New Roman;font-size: 23px;">JIO JOBS</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="{% url 'user-dashboard' user.username %}">Listings By You</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="{% url 'post-create' %}">Want to work?</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="{% url 'user-profile' %}">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="{% url 'user-logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="{% url 'user-register' %}">Sign Up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="{% url 'user-login' %}">Login</a>
+            </li>
+            {% endif %}
+          <!--   <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Register</a>
+            </li>        -->     
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div style="height: 3.5em;"></div>
+
+  <div class="container">
+        <div>
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+        <div>
+          {% block content %}{% endblock %}
+        </div>
+      </div>   
+  </div>
+  <br>
+<!--       padding-top: 0;
+    padding-bottom: 0;
+    background-color: #212529; -->
+
+  <div class="container" style="position: fixed;bottom: 0px;height: 25px;">
+    <div class="row"  style="background-color: #212529;color: white;">
+      <ul class="list-inline">
+        <a href="#" onclick="goBack()"><li class="list-inline-item" style="width: 140px;">
+          Back
+        </li></a>
+        <a href="{% url 'post-home' %}"><li class="list-inline-item">
+          Dashboard
+        </li></a>
+      </ul>
+      <!-- <div class="col-md-6" style="color: white;float: left;">
+        Hi
+      </div>
+      <div class="col-md-6" style="color: white;float: left; ">
+        Bye
+      </div> -->
+    </div>
+  </div>
+
+    <!-- Footer -->
+   <!--  <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <span class="copyright">Copyright &copy; Kinno</span>
+          </div>
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline social-buttons">
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fab fa-twitter"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer> -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script>
+      function goBack() {
+        window.history.back()
+      }
+    </script>
+    <script src="{% static 'post/jquery.js' %}"></script>
+    <script src="{% static 'post/bootstrap.bundle.js' %}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{% static 'post/jquery.easing.js' %}"></script>
+
+    <!-- Contact form JavaScript -->
+    <script src="{% static 'post/jqBootstrapValidation.js' %}"></script>
+    <script src="{% static 'post/contact_me.js' %}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="{% static 'post/agency.js' %}"></script>
+
+  </body>
+
+</html>

@@ -1,0 +1,124 @@
+{% extends "post/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!-- <small class="text-muted" style="float: right;">{{ post.date_posted|date:"F d, Y" }}</small>
+ -->      <div style="padding: 15px;">
+        
+        <img class=" img-rounded article-imag" style="width: 25%; height: 25%;border-radius: 4px;" src="{{ post.author.userprofile.image.url }}">
+      <a class="mr-2" href="{% url 'user-posts' post.author.username %}" style="color: black;"><b style="padding-left: 5px;font-size: 20px;">{{ post.author }}</b></a>
+      <div style="height: 0.3em;border-bottom: 1px solid #eeeeee"></div>
+      <table>
+        <tr >
+          <td>
+            Price/Day:
+          </td>  
+          <td class="second-dat">
+            <b id='item' >Rs. {{ post.priceperday }}</b>
+          </td>
+        </tr>
+        <tr >
+          <td>
+            Location:
+          </td>  
+          <td class="second-dat">
+            <b id='item' >{{ post.location }}</b>
+          </td>
+        </tr>
+        <tr >
+          <td>
+            Gender:
+          </td>  
+          <td class="second-dat">
+            <b id='item' >{{ post.gender }}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Age:
+          </td>  
+          <td class="second-dat">
+            <b>{{ post.age }}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Skills:
+          </td>  
+          <td class="second-dat">
+            <b>{{ post.skills }}</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Mobile:
+          </td>  
+          <td class="second-dat">
+            <b>{{ post.mobile }}</b>
+          </td>
+        </tr>
+      </table>
+      <div align="center">
+      {% if post.author != user  %}
+          <!-- <a class="btn btn-secondary btn-sm mb-1 mt-1" href="{% url 'post-update' post.id %}" style="padding-left: 17px;padding-right: 17px;">Update</a>
+           -->
+<!--            <script>
+            function pay_calc() {
+               var v = document.getElementById("amount");
+               var k = 100*v.value*"{{ post.priceperday }}";
+               localstorage.setItem("mun",k)
+            }
+          </script> -->
+<!--            <input type="text" name="amount" id="amount" placeholder="Enter no.of days" onblur="pay_calc()"> -->
+           <form action="/purchase" method="POST">
+                {% csrf_token %}
+               <script
+                 src="https://checkout.razorpay.com/v1/checkout.js"
+                  data-key="rzp_test_lYErgzGlc3NIvb"
+                  data-amount="30000"
+                  data-buttontext="Hire"
+                  data-name="JIO Jobs"
+                  data-description="{{ post.skills }} Services"
+                  data-prefill.name=""
+                  data-prefill.email=""
+                  data-theme.color="#fed136"
+              ></script>
+          </form>
+      {% endif %}
+      </div>
+      
+      <div align="center">
+      {% if post.author == user  %}
+          <a class="btn btn-secondary btn-sm mb-1 mt-1" href="{% url 'post-update' post.id %}" style="padding-left: 17px;padding-right: 17px;">Update</a>
+          <a class="btn btn-danger btn-sm mb-1 mt-1" href="{% url 'post-delete' post.id %}" style="padding-left: 18px;padding-right: 18px;">Delete</a>
+      {% endif %}
+      </div>
+      </div>
+
+
+      {% for review in post.review_set.all %}
+      <section class="media content-section" style="border: 1px solid;border-color: #eeeeee;border-radius: 5px;padding: 10px;">
+          <div>
+              <b>{{ review.user_name }}</b>
+              <small class="text-muted">{{ review.date_posted|date:"F d, Y" }}</small>
+              <div style="border-bottom:1px solid #eeeeee;height: 0.1em;"></div>
+              <span>{{ review.comment }}</span>
+          </div>
+      </section>
+      {% endfor %}
+      <br>
+    
+    {% if post.author != user  %}
+    <div class ="content-section">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+          {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+          <button class="btn btn-outline-info" type="submit"> Submit</button>
+        </div>
+      </form>
+    </div>
+    {% endif %}
+    <br>
+{% endblock content %}
