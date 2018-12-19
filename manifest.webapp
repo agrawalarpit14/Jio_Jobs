@@ -1,0 +1,36 @@
+{
+	"name": "Jio Jobs",
+	"description": "My first app",
+	"subtitle":"Try and Test",
+	"theme":"#51b7c1",
+	"display":"FirstApp",
+	"version":"1.0.0",
+	"launch_path": "/home.html",
+	"type": "privileged",
+	"origin": "app://firstapp.jio.com"
+	"cursor": true
+	"icons": {
+		"56": "/logos/logo.png",
+		"84": "/logos/logo84.png"
+	},
+	"developer": {
+		"name": "Jio",
+		"url": "http://www.jio.com"
+	},
+	"fullscreen": false,
+	"permissions": {
+		“storage”: {
+			“description”: “Required for storing and retrieving notes. ”
+		}
+	},
+	"default_locale": "en-US",
+	"locales": {
+		"en-US": {
+			"name": "Jio Jobs",
+			"description": " My first app",
+			"subtitle": "Try and Test"
+		},
+
+
+		}
+}
